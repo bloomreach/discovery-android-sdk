@@ -65,6 +65,7 @@ internal class RestClientApi {
                     // Convert input stream to string
                     var result = inputStream.bufferedReader().use(BufferedReader::readText)
                     inputStream.close()
+                   // println("result: $result")
                     val responseMapper = ObjectMapper()
                     return when (type) {
                         ApiType.CORE -> responseMapper.readValue(result, CoreResponse::class.java)
