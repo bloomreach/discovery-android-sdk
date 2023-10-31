@@ -141,10 +141,10 @@ internal object FormatterUtils {
         val uriBuilder = Uri.Builder()
         queryMap.forEach { mapObject ->
             if(mapObject.value is String) {
-                uriBuilder.appendQueryParameter(mapObject.key, getUrlDecodeString(mapObject.value as String))
+                uriBuilder.appendQueryParameter(mapObject.key, mapObject.value as String)
             } else if(mapObject.value is List<*>) { // check for fq
                 for(value in mapObject.value as List<*>) {
-                    uriBuilder.appendQueryParameter(mapObject.key, getUrlDecodeString(value as String))
+                    uriBuilder.appendQueryParameter(mapObject.key, value as String)
                 }
             }
         }
