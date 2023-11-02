@@ -115,7 +115,8 @@ sealed class SearchRequest<T>() : RequestMap<T>() {
      * @return  A reference to the current Request object
      */
     fun sort(value: String?): T {
-        return set(ApiConstants.SORT, value)
+        val newValue = value?.replace("+", " ")
+        return set(ApiConstants.SORT, newValue)
     }
 
     /**
@@ -158,7 +159,7 @@ sealed class SearchRequest<T>() : RequestMap<T>() {
      * @return  Formatted string for sort parameter
      */
     private fun sortString(sort: Sort):String {
-        return "${sort.value}+${sort.order.value}"
+        return "${sort.value} ${sort.order.value}"
     }
 
     /**
