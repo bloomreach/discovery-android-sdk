@@ -1,18 +1,16 @@
 /*
- * Copyright 2022 Bloomreach
+ * Copyright 2023 Bloomreach
  */
 
-package com.bloomreach.discovery.api.model.rp
+package com.bloomreach.discovery.api.model.visualsearch
+
 
 import com.bloomreach.discovery.api.model.BaseResponse
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class RecsAndPathwaysResponse(
+data class ImageUploadResponse(
     @JsonProperty("metadata")
-    val metadata: Metadata? = null,
-
+    var metadata: Metadata? = null,
     @JsonProperty("response")
-    val response: Response? = null
-
-//objects
+    var response: Response? = null
 ) : BaseResponse()
