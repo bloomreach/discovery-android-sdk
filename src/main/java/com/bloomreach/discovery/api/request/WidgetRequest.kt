@@ -404,4 +404,15 @@ class WidgetRequest() : RequestMap<WidgetRequest>() {
     fun url(value: String): WidgetRequest {
         return set(ApiConstants.URL, value)
     }
+
+    /**
+     * Method to set image id for Visual search
+     *
+     * @param value image id
+     *
+     * @return  A reference to the current Request object
+     */
+    fun imageId(value: String): WidgetRequest {
+        return set(ApiConstants.IMAGE_ID, value)
+    }
 }

@@ -5,6 +5,7 @@
 package com.bloomreach.discovery.api.network
 
 import android.net.Uri
+import android.util.Log
 import com.bloomreach.discovery.api.BrApi
 import com.bloomreach.discovery.api.listener.BrApiCompletionListener
 import com.bloomreach.discovery.api.model.BrApiError
@@ -12,10 +13,12 @@ import com.bloomreach.discovery.api.model.Env
 import com.bloomreach.discovery.api.model.core.CoreResponse
 import com.bloomreach.discovery.api.model.rp.RecsAndPathwaysResponse
 import com.bloomreach.discovery.api.model.suggest.SuggestResponse
+import com.bloomreach.discovery.api.model.visualsearch.ImageUploadResponse
 import com.bloomreach.discovery.pixel.processpixel.FormatterUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.InputStream
 import java.net.URL
 
 /**
@@ -115,6 +118,40 @@ internal class ApiProcessor {
     }
 
     /**
+     * Method to call Image Upload API for visual search and invoke the callback with appropriate result
+     * @param widgetId The ID of the widget, which can be found in the Widget Configurator in the Dashboard.
+     * @param inputStream inputStream of the image
+     * @param filename file name of the image
+     * @param brApiCompletionListener Interface object to provide success or failure callback
+     */
+    fun processVisualSearchUploadApi(
+        widgetId: String,
+        inputStream: InputStream,
+        filename: String,
+        brApiCompletionListener: BrApiCompletionListener
+    ) {
+        val uriBuilder = Uri.Builder()
+        //add global request parameters
+        addGlobalQueryForUpload(uriBuilder)
+        // append base endpoint for Pixel call
+        addBaseUrlForVisualSearchUploadApi(uriBuilder, "visual/upload", widgetId)
+        //perform API
+        CoroutineScope(Dispatchers.IO).launch {
+            val uploadFile =
+                FileUpload(URL(uriBuilder.build().toString()))
+            Log.i("processVisualSearchUploadApi API CALL:", uriBuilder.build().toString())
+            uploadFile.addFilePart(inputStream, filename)
+            val result = uploadFile.upload()
+            if (result is ImageUploadResponse)
+            //invoke success callback
+                brApiCompletionListener.onBrApiSuccess(result)
+            else if (result is BrApiError)
+            //invoke failure callback
+                brApiCompletionListener.onBrApiFailure(result)
+        }
+    }
+
+    /**
      * Method to add global request parameters to Uri Builder
      * @param uriBuilder The Uri.Builder where the global request parameters will be added in required format
      */
@@ -134,6 +171,17 @@ internal class ApiProcessor {
         if (!BrApi.brApiRequest.userId.isNullOrEmpty()) {
             uriBuilder.appendQueryParameter("user_id", BrApi.brApiRequest.userId)
         }
+        return uriBuilder
+    }
+
+    /**
+     * Method to add global request parameters to Uri Builder
+     * @param uriBuilder The Uri.Builder where the global request parameters will be added in required format
+     */
+    fun addGlobalQueryForUpload(uriBuilder: Uri.Builder): Uri.Builder {
+        uriBuilder.appendQueryParameter("account_id", BrApi.brApiRequest.accountId)
+        uriBuilder.appendQueryParameter("auth_key", BrApi.brApiRequest.authKey)
+        uriBuilder.appendQueryParameter("domain_key", BrApi.brApiRequest.domainKey)
         return uriBuilder
     }
 
@@ -178,6 +226,16 @@ internal class ApiProcessor {
      *
      */
     fun addBaseUrlForPathwaysApi(uriBuilder: Uri.Builder, widgetType: String, widgetId: String) {
+        uriBuilder.scheme(SCEHEME)
+        //check for env if stage or prod
+        when (BrApi.brApiRequest.environment) {
+            Env.STAGE -> uriBuilder.authority("pathways-staging.dxpapi.com")
+            Env.PROD -> uriBuilder.authority("pathways.dxpapi.com")
+        }
+        uriBuilder.appendEncodedPath("$WIDGET_API_PATH$widgetType/$widgetId")
+    }
+
+    fun addBaseUrlForVisualSearchUploadApi(uriBuilder: Uri.Builder, widgetType: String, widgetId: String) {
         uriBuilder.scheme(SCEHEME)
         //check for env if stage or prod
         when (BrApi.brApiRequest.environment) {

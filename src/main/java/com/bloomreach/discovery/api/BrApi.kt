@@ -7,6 +7,7 @@ package com.bloomreach.discovery.api
 import com.bloomreach.discovery.api.listener.BrApiCompletionListener
 import com.bloomreach.discovery.api.network.ApiProcessor
 import com.bloomreach.discovery.api.request.*
+import java.io.InputStream
 
 /**
  * BrApi Singleton class holds method to initiate BrApiRequest object and API calls methods
@@ -172,5 +173,33 @@ object BrApi {
             throw IllegalArgumentException("Widget Id is empty")
         }
         recAndPathwaysWidgetApi(widgetId, WidgetApiType.GLOBAL.value, widgetRequest, brApiCompletionListener)
+    }
+
+    /**
+     * Method to call Image Upload API for visual search and invoke the callback with appropriate result
+     * @param widgetId The ID of the widget, which can be found in the Widget Configurator in the Dashboard.
+     * @param inputStream inputStream of the image
+     * @param fileName file name of the image
+     * @param brApiCompletionListener Interface object to provide success or failure callback
+     */
+    fun uploadImageForVisualSearch(widgetId: String, inputStream: InputStream, fileName:String, brApiCompletionListener: BrApiCompletionListener) {
+        if(widgetId.isEmpty()) {
+            throw IllegalArgumentException("Widget Id is empty")
+        }
+        apiProcessor.processVisualSearchUploadApi(widgetId, inputStream, fileName, brApiCompletionListener)
+    }
+
+    /**
+    * Method for calling Visual Search Widget API
+    * @param widgetId The ID of the widget, which can be found in the Widget Configurator in the Dashboard.
+    * @param widgetRequest request Object required for Global Recommendation Widget API
+    *
+    * @param brApiCompletionListener Callback listener
+    */
+    fun visualSearchWidgetApi(widgetId: String, widgetRequest: WidgetRequest,  brApiCompletionListener: BrApiCompletionListener) {
+        if(widgetId.isEmpty()) {
+            throw IllegalArgumentException("Widget Id is empty")
+        }
+        recAndPathwaysWidgetApi(widgetId, WidgetApiType.VISUAL_SEARCH.value, widgetRequest, brApiCompletionListener)
     }
 }
