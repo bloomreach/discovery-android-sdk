@@ -93,7 +93,6 @@ internal class FileUpload(url: URL) {
                     .inputStream))
                 val response = reader.use(BufferedReader::readText)
                 httpConnection.disconnect()
-                println("res: $response")
                 val responseMapper = ObjectMapper()
                 return responseMapper.readValue(response, ImageUploadResponse::class.java)
             } else {
@@ -101,8 +100,6 @@ internal class FileUpload(url: URL) {
                     val result = httpConnection.errorStream.bufferedReader().use(BufferedReader::readText)
                     httpConnection.errorStream.close()
                     //covert error result to BrApiError object
-                    print("error: $result")
-
                     val responseMapper = ObjectMapper()
                     val rpError = responseMapper.readValue(result, RpError::class.java)
                     return BrApiError(rpError.detail ?: "Something went wrong", responseCode)
@@ -112,7 +109,7 @@ internal class FileUpload(url: URL) {
             }
 
         } catch (e: Exception) {
-            Log.e("Visual Search upload API CALL::", "Error: ${e.localizedMessage}")
+            Log.e("Visual Search upload API CALL:", "Error: ${e.localizedMessage}")
             return BrApiError("Something went wrong", 0)
         }
     }
