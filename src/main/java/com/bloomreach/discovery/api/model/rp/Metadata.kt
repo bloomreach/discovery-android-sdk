@@ -13,4 +13,6 @@ data class Metadata(
 
     @JsonProperty("widget")
     val widget: Widget? = null
+
+//Query
 )  : BaseResponse()

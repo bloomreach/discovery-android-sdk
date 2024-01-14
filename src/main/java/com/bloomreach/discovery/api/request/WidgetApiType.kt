@@ -13,5 +13,6 @@ enum class WidgetApiType(val value: String) {
     CATEGORY("category"),
     KEYWORD("keyword"),
     PERSONALIZED("personalized"),
-    GLOBAL("global")
+    GLOBAL("global"),
+    VISUAL_SEARCH("visual/search")
 }
