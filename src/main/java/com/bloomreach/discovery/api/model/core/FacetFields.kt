@@ -7,6 +7,8 @@ package com.bloomreach.discovery.api.model.core
 import com.bloomreach.discovery.api.model.BaseResponse
 import com.fasterxml.jackson.annotation.JsonProperty
 
+@Deprecated("Customers whose go-live date is after September 7, 2023 will be on V3 Facet response format by default. " +
+        "If you’re on the legacy format and would like to implement the new Facet response format, kindly contact your Bloomreach Services representative.")
 class FacetFields : BaseResponse() {
     val name: String? = null
 

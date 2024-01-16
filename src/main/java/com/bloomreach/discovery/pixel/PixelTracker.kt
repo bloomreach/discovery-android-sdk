@@ -320,6 +320,7 @@ object PixelTracker {
      * @param searchTerm The value of the search query describing the page.
      * @param catalogs List of CatalogItem that are shown in the page.
      */
+    @Deprecated("This method will be removed in future version. Instead use searchEventPixel(ref, title, searchTerm, catalogs)")
     fun searchEventPixel(
         ref: String,
         title: String,
@@ -342,6 +343,41 @@ object PixelTracker {
                 prodId = prodId,
                 prodName = prodName,
                 prodSku = sku,
+                searchTerm = searchTerm,
+                catalogs = catalogs
+            )
+
+            // send pixel for further processing
+            pixelProcessor.processPixel(pixelObject)
+        } else {
+            Log.e(TAG, "Pixel Tracker not initialised")
+        }
+    }
+
+
+    /**
+     * Method for sending the Search Event Pixel
+     * @param ref Synthetic URL from referrer screen
+     * @param title Screen name of the app view.
+     * @param searchTerm The value of the search query describing the page.
+     * @param catalogs List of CatalogItem that are shown in the page.
+     */
+    fun searchEventPixel(
+        ref: String,
+        title: String,
+        searchTerm: String,
+        catalogs: List<CatalogItem>? = null
+    ) {
+        if (this::brPixel.isInitialized) {
+
+            // create pixel object based ob input
+            val pixelObject = PixelObject(
+                type = PixelType.EVENT,
+                pType = PageType.PRODUCT_PAGE,
+                group = GroupType.SUGGEST,
+                eType = "submit",
+                ref = ref,
+                title = title,
                 searchTerm = searchTerm,
                 catalogs = catalogs
             )
