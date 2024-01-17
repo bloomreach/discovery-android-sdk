@@ -222,9 +222,13 @@ internal class PixelProcessor {
 
         queryMap.put("etype", pixelObject.eType)
 
-        queryMap.put("prod_id", pixelObject.prodId)
+        if (!pixelObject.prodId.isNullOrEmpty()) {
+            queryMap.put("prod_id", pixelObject.prodId)
+        }
 
-        queryMap.put("prod_name", pixelObject.prodName)
+        if (!pixelObject.prodName.isNullOrEmpty()) {
+            queryMap.put("prod_name", pixelObject.prodName)
+        }
 
         if (!pixelObject.prodSku.isNullOrEmpty()) {
             queryMap.put("sku", pixelObject.prodSku)
