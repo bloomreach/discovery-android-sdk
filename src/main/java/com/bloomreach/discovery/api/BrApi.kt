@@ -44,6 +44,16 @@ object BrApi {
     }
 
     /**
+     * Method for calling Dynamic Category Search API request
+     * @param categorySearchRequest Request Object required for Category Search API
+     * @param brApiCompletionListener Callback listener
+     */
+    fun dynamicCategorySearchApi(categorySearchRequest: CategorySearchRequest, brApiCompletionListener: BrApiCompletionListener) {
+        categorySearchRequest.setDynamicCategory()
+        categorySearchApi(categorySearchRequest, brApiCompletionListener)
+    }
+
+    /**
      * Method for calling Content API request
      * @param contentSearchRequest Request Object required for Content Search API
      * @param brApiCompletionListener Callback listener
