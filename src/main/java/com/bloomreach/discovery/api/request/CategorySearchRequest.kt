@@ -29,4 +29,12 @@ class CategorySearchRequest() : SearchRequest<CategorySearchRequest>() {
     private fun setSearchType(): CategorySearchRequest {
         return set(ApiConstants.SEARCH_TYPE, ApiConstants.SEARCH_TYPE_CATEGORY)
     }
+
+    /**
+     * Method to set hardcoded default parameters required for Category Search API
+     * @return  A reference request object
+     */
+    internal fun setDynamicCategory(): CategorySearchRequest {
+        return set(ApiConstants.CATEGORY_TYPE, ApiConstants.CATEGORY_TYPE_DYNAMIC)
+    }
 }
