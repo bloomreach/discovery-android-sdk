@@ -52,8 +52,11 @@ internal object ApiConstants {
     const val FACET = "facet"
     const val FILTER = "filter"
     const val IMAGE_ID = "image_id"
+    const val FACET_VERSION = "facet.version"
 
     const val DEFAULT_FACET_FLAG = false
 
+    const val CATEGORY_TYPE = "category_type"
+    const val CATEGORY_TYPE_DYNAMIC = "dynamic"
 
 }
