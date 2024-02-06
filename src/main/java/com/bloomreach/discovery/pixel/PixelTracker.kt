@@ -147,7 +147,7 @@ object PixelTracker {
     }
 
     /**
-     * Method for sending the Category Search Page View Pixel
+     * Method for sending the Category Page View Pixel
      * @param ref Synthetic URL from referrer screen
      * @param title Screen name of the app view.
      * @param categoryId Unique category ID as referred to in the database/catalog. Bloomreach requires the cat_id field to be unique across your site.
@@ -373,7 +373,7 @@ object PixelTracker {
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.EVENT,
-                pType = PageType.PRODUCT_PAGE,
+                pType = PageType.SEARCH_PAGE,
                 group = GroupType.SUGGEST,
                 eType = "submit",
                 ref = ref,
@@ -401,6 +401,7 @@ object PixelTracker {
      * @param searchTerm User's typed search query submitted to search box
      * @param catalogs List of CatalogItem that are shown in the page.
      */
+    @Deprecated("This method will be removed in future version. Instead use suggestionEventPixel(ref, title,typedTerm, searchTerm, catalogs)")
     fun suggestionEventPixel(
         ref: String,
         title: String,
@@ -423,6 +424,43 @@ object PixelTracker {
                 prodId = prodId,
                 prodName = prodName,
                 prodSku = sku,
+                searchTerm = searchTerm,
+                typedTerm = typedTerm,
+                catalogs = catalogs
+            )
+
+            // send pixel for further processing
+            pixelProcessor.processPixel(pixelObject)
+        } else {
+            Log.e(TAG, "Pixel Tracker not initialised")
+        }
+    }
+
+    /**
+     * Method for sending the Suggestion Event Pixel
+     * @param ref Synthetic URL from referrer screen
+     * @param title Screen name of the app view.
+     * @param typedTerm The display query (the one or more letters) that the user has actually typed.
+    This is NOT the suggested word or phrase.
+     * @param searchTerm User's typed search query submitted to search box
+     * @param catalogs List of CatalogItem that are shown in the page.
+     */
+    fun suggestionEventPixel(
+        ref: String,
+        title: String,
+        typedTerm: String,
+        searchTerm: String,
+        catalogs: List<CatalogItem>? = null
+    ) {
+        if (this::brPixel.isInitialized) {
+            // create pixel object based ob input
+            val pixelObject = PixelObject(
+                type = PixelType.EVENT,
+                pType = PageType.PRODUCT_PAGE,
+                group = GroupType.SUGGEST,
+                eType = "click",
+                ref = ref,
+                title = title,
                 searchTerm = searchTerm,
                 typedTerm = typedTerm,
                 catalogs = catalogs

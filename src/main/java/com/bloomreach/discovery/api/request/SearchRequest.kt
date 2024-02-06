@@ -492,4 +492,15 @@ sealed class SearchRequest<T>() : RequestMap<T>() {
     fun url(value: String): T {
         return set(ApiConstants.URL, value)
     }
+
+    /**
+     * Method to Facet Version
+     *
+     * @param value facet version eg: '3.0'
+     *
+     * @return  A reference to the current Request object
+     */
+    fun facetVersion(value: String): T {
+        return set(ApiConstants.FACET_VERSION, value)
+    }
 }
