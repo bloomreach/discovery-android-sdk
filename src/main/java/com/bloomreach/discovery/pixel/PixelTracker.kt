@@ -29,12 +29,58 @@ object PixelTracker {
      * @param ref Synthetic URL from referrer screen
      * @param title Screen name of the app view.
      */
-    fun pageViewPixel(ref: String, title: String, viewId: String? = null) {
+    fun pageViewPixel(ref: String, title: String) {
         if (this::brPixel.isInitialized) {
             // create pixel object based on input
             val pixelObject = PixelObject(
                 type = PixelType.PAGE_VIEW,
                 pType = PageType.HOME_PAGE,
+                ref = ref,
+                title = title
+            )
+
+            // send pixel for further processing
+            pixelProcessor.processPixel(pixelObject)
+
+        } else {
+            Log.e(TAG, "Pixel Tracker not initialised")
+        }
+    }
+
+    /**
+     * Method for sending the Home Page View Pixel
+     * @param ref Synthetic URL from referrer screen
+     * @param title Screen name of the app view.
+     */
+    fun homePageViewPixel(ref: String, title: String) {
+        if (this::brPixel.isInitialized) {
+            // create pixel object based on input
+            val pixelObject = PixelObject(
+                type = PixelType.PAGE_VIEW,
+                pType = PageType.HOME_PAGE,
+                ref = ref,
+                title = title
+            )
+
+            // send pixel for further processing
+            pixelProcessor.processPixel(pixelObject)
+
+        } else {
+            Log.e(TAG, "Pixel Tracker not initialised")
+        }
+    }
+
+    /**
+     * Method for sending the Other Page View Pixel
+     * @param ref Synthetic URL from referrer screen
+     * @param title Screen name of the app view.
+     */
+    fun otherPageViewPixel(ref: String, title: String) {
+        if (this::brPixel.isInitialized) {
+            // create pixel object based on input
+            val pixelObject = PixelObject(
+                type = PixelType.PAGE_VIEW,
+                pType = PageType.OTHER_PAGE,
                 ref = ref,
                 title = title
             )
@@ -354,7 +400,6 @@ object PixelTracker {
         }
     }
 
-
     /**
      * Method for sending the Search Event Pixel
      * @param ref Synthetic URL from referrer screen
@@ -456,7 +501,7 @@ object PixelTracker {
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.EVENT,
-                pType = PageType.PRODUCT_PAGE,
+                pType = PageType.SEARCH_PAGE,
                 group = GroupType.SUGGEST,
                 eType = "click",
                 ref = ref,
