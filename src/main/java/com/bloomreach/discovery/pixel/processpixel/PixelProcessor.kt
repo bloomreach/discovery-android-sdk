@@ -155,6 +155,11 @@ internal class PixelProcessor {
             queryMap.put("domain_key", PixelTracker.brPixel.domainKey)
         }
 
+        //debug
+        if (PixelTracker.brPixel.debugMode) {
+            queryMap.put("debug", PixelTracker.brPixel.debugMode.toString())
+        }
+
         // add the processed Map to Queue for further process
         PixelQueue.add(queryMap)
     }
@@ -332,6 +337,11 @@ internal class PixelProcessor {
         //DomainKey
         if (!PixelTracker.brPixel.domainKey.isNullOrEmpty()) {
             queryMap.put("domain_key", PixelTracker.brPixel.domainKey)
+        }
+
+        //debug
+        if (PixelTracker.brPixel.debugMode) {
+            queryMap.put("debug", PixelTracker.brPixel.debugMode.toString())
         }
 
         return queryMap
