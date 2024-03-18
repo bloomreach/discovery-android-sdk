@@ -5,7 +5,6 @@ package com.bloomreach.discovery.pixel.processpixel
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.bloomreach.discovery.BuildConfig
 import com.bloomreach.discovery.pixel.PixelTracker
 import com.bloomreach.discovery.pixel.model.PageType
 import com.bloomreach.discovery.pixel.model.PixelObject
@@ -92,9 +91,14 @@ internal class PixelProcessor {
         queryMap.put(
             "cookie2", FormatterUtils.formatCookieValue(
                 PixelTracker.brPixel.uuid,
-                PixelTracker.brPixel.visitorType
+                PixelTracker.brPixel.visitorType,
+                PixelTracker.brPixel.cdpSegment
             )
         )
+
+        if (!PixelTracker.brPixel.cdpSegment.isNullOrEmpty()) {
+            queryMap.put("cdp_segments", PixelTracker.brPixel.cdpSegment)
+        }
 
         queryMap.put("rand", generateRand())
 
@@ -273,9 +277,14 @@ internal class PixelProcessor {
         queryMap.put(
             "cookie2", FormatterUtils.formatCookieValue(
                 PixelTracker.brPixel.uuid,
-                PixelTracker.brPixel.visitorType
+                PixelTracker.brPixel.visitorType,
+                PixelTracker.brPixel.cdpSegment
             )
         )
+
+        if (!PixelTracker.brPixel.cdpSegment.isNullOrEmpty()) {
+            queryMap.put("cdp_segments", PixelTracker.brPixel.cdpSegment)
+        }
 
         queryMap.put("rand", generateRand())
 

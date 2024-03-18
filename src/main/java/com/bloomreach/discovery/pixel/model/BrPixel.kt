@@ -39,7 +39,9 @@ data class BrPixel(
     var customerGeo: String? = null,
     var customerProfile: String? = null,
     var viewId: String? = null,
-    var debugMode: Boolean = false
+    var debugMode: Boolean = false,
+    //rts
+    var cdpSegment: String? = null
 ) {
     init {
         require(accountId.isNotEmpty()) { "Bloomreach Account Id is required" }

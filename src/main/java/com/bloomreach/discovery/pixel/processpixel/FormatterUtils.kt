@@ -4,12 +4,12 @@
 package com.bloomreach.discovery.pixel.processpixel
 
 import android.net.Uri
+import android.util.Base64
 import android.util.Log
 import com.bloomreach.discovery.pixel.model.CatalogItem
 import com.bloomreach.discovery.pixel.model.PixelBasketItem
 import com.bloomreach.discovery.pixel.model.VisitorType
 import java.net.URLDecoder
-import java.net.URLEncoder
 import kotlin.random.Random
 
 /**
@@ -34,9 +34,13 @@ internal object FormatterUtils {
      *
      * @return  cookie2 - String  value in 'uid={{UUID}}:v=app:ts=0:hc={{hitcount}}' format
      */
-    fun formatCookieValue(uuid: String, hitcount: VisitorType): String {
+    fun formatCookieValue(uuid: String, hitcount: VisitorType, cdpSegment: String? = null): String {
         // convert uid={{UUID}}:v=app:ts=0:hc={{hitcount}}
-        return "uid=$uuid:v=app:ts=0:hc=${hitcount.hitCount}"
+        return if(cdpSegment.isNullOrEmpty()) {
+            "uid=$uuid:v=app:ts=0:hc=${hitcount.hitCount}"
+        } else {
+            "uid=$uuid:v=app:ts=0:hc=${hitcount.hitCount}:cdp_segments=${Base64.encodeToString(cdpSegment.toByteArray(), Base64.DEFAULT)}"
+        }
     }
 
     /**
