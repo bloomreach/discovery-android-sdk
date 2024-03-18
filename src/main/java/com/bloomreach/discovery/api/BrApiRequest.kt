@@ -25,5 +25,8 @@ data class BrApiRequest(
     val domainKey: String,
     var authKey: String? = null,
     var userId: String? = null,
-    var environment: Env = Env.STAGE
+    var environment: Env = Env.STAGE,
+
+    //rts
+    var cdpSegment: String? = null
 )
