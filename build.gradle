@@ -4,25 +4,25 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 34
 
     defaultConfig {
         minSdk 24
-        targetSdk 32
+        targetSdk 34
         versionCode 1
-        versionName "1.0.14"
+        versionName "1.0.15"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
     buildTypes {
         debug {
-            buildConfigField "String", 'SDK_VERSION', '"1.0.14"'
+            buildConfigField "String", 'SDK_VERSION', '"1.0.15"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         release {
-            buildConfigField "String", 'SDK_VERSION', '"1.0.14"'
+            buildConfigField "String", 'SDK_VERSION', '"1.0.15"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
