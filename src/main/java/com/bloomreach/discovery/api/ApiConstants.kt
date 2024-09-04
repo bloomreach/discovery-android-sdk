@@ -59,4 +59,13 @@ internal object ApiConstants {
     const val CATEGORY_TYPE = "category_type"
     const val CATEGORY_TYPE_DYNAMIC = "dynamic"
 
+    const val BOOST = "boost"
+    const val BURY = "bury"
+    const val LOCK = "lock"
+    const val ADD_TO_RECALL = "add_to_recall"
+    const val SOFT_BOOST = "soft_boost"
+    const val SOFT_BURY = "soft_bury"
+    const val INCLUDE = "include"
+    const val EXCLUDE = "exclude"
+
 }
