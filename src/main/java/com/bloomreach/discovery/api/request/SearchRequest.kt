@@ -592,4 +592,29 @@ sealed class SearchRequest<T>() : RequestMap<T>() {
     fun exclude(value: String): T {
         return set(ApiConstants.EXCLUDE, value)
     }
+
+    /**
+     * Method to Apply Loomi Search+ API Controls
+     *
+     * @param value ENUM of type SearchMode.
+     * HYBRID for Loomi Search+ mode or STANDARD for Keyword search mode
+     *
+     * @return  A reference to the current Request object
+     */
+    fun searchMode(value: SearchMode): T {
+        return set(ApiConstants.QUERY_SEARCH_MODE, value.value)
+    }
+
+    /**
+     * Method to Apply Vector Search Temperature
+     *
+     * @param value ENUM of type VectorSearchTemperature
+     * standard For a wider recall or high For a compact and very precise recall
+     *
+     *
+     * @return  A reference to the current Request object
+     */
+    fun vectorSearchTemperature(value: VectorSearchTemperature): T {
+        return set(ApiConstants.VECTOR_SEARCH_TEMPERATURE, value.value)
+    }
 }
