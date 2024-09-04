@@ -68,4 +68,7 @@ internal object ApiConstants {
     const val INCLUDE = "include"
     const val EXCLUDE = "exclude"
 
+    const val QUERY_SEARCH_MODE = "query.search_mode"
+    const val VECTOR_SEARCH_TEMPERATURE = "vector_search.temperature"
+
 }
