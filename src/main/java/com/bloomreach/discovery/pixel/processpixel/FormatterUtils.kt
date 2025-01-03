@@ -48,7 +48,12 @@ internal object FormatterUtils {
      */
     fun formatUrl(baseurl: String, pType: String, title: String): String {
         // convert in format http://merchantname.app/ptype/title
-        return "$baseurl$pType/$title"
+        return if(pType.isEmpty()) {
+            baseurl
+        } else {
+            "$baseurl$pType/$title"
+        }
+
     }
 
     /**
