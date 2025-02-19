@@ -38,7 +38,7 @@ internal class PixelProcessor {
             }
 
             @RequiresApi(Build.VERSION_CODES.N)
-            override fun onElementRemoved(element: MutableMap<String, String?>) {
+            override fun onElementRemoved(element: MutableMap<String, String?>?) {
                 performApi()
             }
         })
