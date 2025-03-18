@@ -10,19 +10,19 @@ android {
         minSdk 24
         targetSdk 34
         versionCode 1
-        versionName "1.0.17"
+        versionName "1.0.18"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
     buildTypes {
         debug {
-            buildConfigField "String", 'SDK_VERSION', '"1.0.17"'
+            buildConfigField "String", 'SDK_VERSION', '"1.0.18"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         release {
-            buildConfigField "String", 'SDK_VERSION', '"1.0.17"'
+            buildConfigField "String", 'SDK_VERSION', '"1.0.18"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

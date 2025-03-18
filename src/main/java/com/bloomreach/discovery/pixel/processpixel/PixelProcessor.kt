@@ -160,6 +160,11 @@ internal class PixelProcessor {
             queryMap.put("debug", PixelTracker.brPixel.debugMode.toString())
         }
 
+        //abtest
+        if (!PixelTracker.brPixel.abTest.isNullOrEmpty()) {
+            queryMap.put("abtest", PixelTracker.brPixel.abTest)
+        }
+
         // add the processed Map to Queue for further process
         PixelQueue.add(queryMap)
     }
@@ -342,6 +347,11 @@ internal class PixelProcessor {
         //debug
         if (PixelTracker.brPixel.debugMode) {
             queryMap.put("debug", PixelTracker.brPixel.debugMode.toString())
+        }
+
+        //abtest
+        if (!PixelTracker.brPixel.abTest.isNullOrEmpty()) {
+            queryMap.put("abtest", PixelTracker.brPixel.abTest)
         }
 
         return queryMap

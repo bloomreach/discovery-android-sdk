@@ -21,6 +21,7 @@ package com.bloomreach.discovery.pixel.model
  * @property customerProfile Profile of the user.
  * @property viewId View Id
  * @property debugMode Debug mode of main application to see Pixel Validator logs. Pass value as BuildConfig.DEBUG
+ * @property abTest if performing AB tests, pass appropriate value
  */
 
 data class BrPixel(
@@ -39,7 +40,9 @@ data class BrPixel(
     var customerGeo: String? = null,
     var customerProfile: String? = null,
     var viewId: String? = null,
-    var debugMode: Boolean = false
+    var debugMode: Boolean = false,
+    //abtest
+    var abTest: String? = null,
 ) {
     init {
         require(accountId.isNotEmpty()) { "Bloomreach Account Id is required" }
