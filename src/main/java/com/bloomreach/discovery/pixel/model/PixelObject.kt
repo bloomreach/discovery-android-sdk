@@ -33,6 +33,7 @@ internal data class PixelObject(
     val searchTerm: String? = null,
     val typedTerm: String? = null,
     val catId: String? = null,
-    val cat: String? = null
+    val cat: String? = null,
 
+    val brPSuggQ: String? = null,
 )

@@ -100,19 +100,21 @@ object PixelTracker {
      * @param prodId This is the unique ID which describes a product or product collection.
      * @param prodName The name of the product being viewed.
      * @param sku Unique sku ID that represents the selected variant of this product. If your site does not have SKUs, leave this blank.
+     * @param brPSuggQ Value of User clicked a product suggest. If its not there, leave this null
      */
     fun productPageViewPixel(
         ref: String,
         title: String,
         prodId: String,
         prodName: String,
-        sku: String? = null
+        sku: String? = null,
+        brPSuggQ: String? = null,
     ) {
         if (this::brPixel.isInitialized) {
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.PAGE_VIEW, pType = PageType.PRODUCT_PAGE,
-                ref = ref, title = title, prodId = prodId, prodName = prodName, prodSku = sku
+                ref = ref, title = title, prodId = prodId, prodName = prodName, prodSku = sku, brPSuggQ = brPSuggQ
             )
 
             // send pixel for further processing

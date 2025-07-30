@@ -106,7 +106,9 @@ internal class PixelProcessor {
             "url", FormatterUtils.formatUrl(
                 PixelTracker.brPixel.baseUrl,
                 queryMap["ptype"] ?: "",
-                queryMap["title"] ?: ""
+                queryMap["title"] ?: "",
+                queryMap["brPSuggQ"] ?: ""
+
             )
         )
 
@@ -298,7 +300,8 @@ internal class PixelProcessor {
             "url", FormatterUtils.formatUrl(
                 PixelTracker.brPixel.baseUrl,
                 pixelObject.pType.pType,
-                pixelObject.title
+                pixelObject.title,
+                pixelObject.brPSuggQ
             )
         )
 
