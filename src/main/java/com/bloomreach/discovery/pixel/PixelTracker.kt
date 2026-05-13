@@ -339,7 +339,7 @@ object PixelTracker {
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.EVENT,
-                pType = PageType.PRODUCT_PAGE,
+                pType = PageType.EVENT,
                 group = GroupType.CART,
                 eType = "click-add",
                 ref = ref,
@@ -383,7 +383,7 @@ object PixelTracker {
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.EVENT,
-                pType = PageType.PRODUCT_PAGE,
+                pType = PageType.EVENT,
                 group = GroupType.SUGGEST,
                 eType = "submit",
                 ref = ref,
@@ -420,7 +420,7 @@ object PixelTracker {
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.EVENT,
-                pType = PageType.SEARCH_PAGE,
+                pType = PageType.EVENT,
                 group = GroupType.SUGGEST,
                 eType = "submit",
                 ref = ref,
@@ -463,7 +463,7 @@ object PixelTracker {
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.EVENT,
-                pType = PageType.PRODUCT_PAGE,
+                pType = PageType.EVENT,
                 group = GroupType.SUGGEST,
                 eType = "click",
                 ref = ref,
@@ -503,7 +503,7 @@ object PixelTracker {
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.EVENT,
-                pType = PageType.SEARCH_PAGE,
+                pType = PageType.EVENT,
                 group = GroupType.SUGGEST,
                 eType = "click",
                 ref = ref,
@@ -539,7 +539,7 @@ object PixelTracker {
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.EVENT,
-                pType = PageType.PRODUCT_PAGE,
+                pType = PageType.EVENT,
                 group = GroupType.PRODUCT,
                 eType = "quickview",
                 ref = ref,
@@ -579,7 +579,7 @@ object PixelTracker {
             params["title"] = title
             params["type"] = PixelType.EVENT.type
             params["etype"] = eType
-            params["ptype"] = pType.pType
+            params["ptype"] = PageType.EVENT.pType
             params["group"] = group.group
             pixelProcessor.processPixel(params)
         } else {
