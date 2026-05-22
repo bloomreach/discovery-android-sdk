@@ -231,8 +231,9 @@ object PixelTracker {
      * @param ref Synthetic URL from referrer screen
      * @param title Screen name of the app view.
      * @param searchTerm The value of the search query describing the page.
+     * @param catalogs List of CatalogItem that are shown in the page.
      */
-    fun searchResultPageViewPixel(ref: String, title: String, searchTerm: String) {
+    fun searchResultPageViewPixel(ref: String, title: String, searchTerm: String, catalogs: List<CatalogItem>? = null) {
         if (this::brPixel.isInitialized) {
             // create pixel object based ob input
             val pixelObject = PixelObject(
@@ -240,7 +241,8 @@ object PixelTracker {
                 pType = PageType.SEARCH_PAGE,
                 ref = ref,
                 title = title,
-                searchTerm = searchTerm
+                searchTerm = searchTerm,
+                catalogs = catalogs
             )
 
             // send pixel for further processing
