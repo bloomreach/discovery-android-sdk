@@ -12,7 +12,7 @@ internal data class PixelObject(
     val type: PixelType, //ENUM
     val pType: PageType, //ENUM
     val title: String,
-    val ref: String,
+    val ref: String?,
 
     val eType: String? = null,
     val prodId: String? = null,
@@ -33,6 +33,7 @@ internal data class PixelObject(
     val searchTerm: String? = null,
     val typedTerm: String? = null,
     val catId: String? = null,
-    val cat: String? = null
+    val cat: String? = null,
 
+    val brPSuggQ: String? = null,
 )
