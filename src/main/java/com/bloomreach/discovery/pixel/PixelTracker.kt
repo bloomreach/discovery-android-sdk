@@ -28,7 +28,7 @@ object PixelTracker {
 
     /**
      * Method for sending the Page View Pixel
-     * @param ref Synthetic URL from referrer screen
+     * @param ref Synthetic URL from referrer screen. If not provided, will use auto-tracked referrer.
      * @param title Screen name of the app view.
      */
     @JvmOverloads
@@ -55,7 +55,7 @@ object PixelTracker {
 
     /**
      * Method for sending the Home Page View Pixel
-     * @param ref Synthetic URL from referrer screen
+     * @param ref Synthetic URL from referrer screen. If not provided, will use auto-tracked referrer.
      * @param title Screen name of the app view.
      */
     @JvmOverloads
@@ -82,7 +82,7 @@ object PixelTracker {
 
     /**
      * Method for sending the Other Page View Pixel
-     * @param ref Synthetic URL from referrer screen
+     * @param ref Synthetic URL from referrer screen. If not provided, will use auto-tracked referrer.
      * @param title Screen name of the app view.
      */
     @JvmOverloads
@@ -109,7 +109,7 @@ object PixelTracker {
 
     /**
      * Method for sending the Product Page View Pixel
-     * @param ref Synthetic URL from referrer screen
+     * @param ref Synthetic URL from referrer screen. If not provided, will use auto-tracked referrer.
      * @param title Screen name of the app view.
      * @param prodId This is the unique ID which describes a product or product collection.
      * @param prodName The name of the product being viewed.
@@ -145,7 +145,7 @@ object PixelTracker {
 
     /**
      * Method for sending the Content Page View Pixel
-     * @param ref Synthetic URL from referrer screen
+     * @param ref Synthetic URL from referrer screen. If not provided, will use auto-tracked referrer.
      * @param title Screen name of the app view.
      * @param catalogs List of CatalogItem that are shown in the page. In case the page has multiple
      *                 tabs, only the catalogs of the selected (and visualized) tabs should be included.
@@ -185,7 +185,7 @@ object PixelTracker {
     }
 
     /**
-     * Method for sending the Content Search Page View Pixel
+     * Method for sending the Content Search Page View Pixel. If not provided, will use auto-tracked referrer.
      * @param ref Synthetic URL from referrer screen
      * @param title Screen name of the app view.
      * @param catalogs List of CatalogItem that are shown in the page.
@@ -222,7 +222,7 @@ object PixelTracker {
 
     /**
      * Method for sending the Category Page View Pixel
-     * @param ref Synthetic URL from referrer screen
+     * @param ref Synthetic URL from referrer screen. If not provided, will use auto-tracked referrer.
      * @param title Screen name of the app view.
      * @param categoryId Unique category ID as referred to in the database/catalog. Bloomreach requires the cat_id field to be unique across your site.
      * @param category The bread crumb of the page. Value needs to match the crumb value in your feed. eg: "Home|Clothing|Outerwear"
@@ -258,7 +258,7 @@ object PixelTracker {
 
     /**
      * Method for sending the Search Result Page View Pixel
-     * @param ref Synthetic URL from referrer screen
+     * @param ref Synthetic URL from referrer screen. If not provided, will use auto-tracked referrer.
      * @param title Screen name of the app view.
      * @param searchTerm The value of the search query describing the page.
      */
@@ -288,7 +288,7 @@ object PixelTracker {
 
     /**
      * Method for sending the Conversion Page View Pixel
-     * @param ref Synthetic URL from referrer screen
+     * @param ref Synthetic URL from referrer screen. If not provided, will use auto-tracked referrer.
      * @param title Screen name of the app view.
      * @param isConversion Set to true to indicate this is a Conversion or Thank you page
      * @param basketValue The total price of the checkout basket including tax, discounts, shipping and/or discounts in the account currency.
@@ -330,7 +330,7 @@ object PixelTracker {
 
     /**
      * Method to send any type of Page View Pixel with Custom Parameters
-     * @param ref Synthetic URL from referrer screen. If empty, will use auto-tracked referrer.
+     * @param ref Synthetic URL from referrer screen. If not provided, will use auto-tracked referrer.
      * @param title Screen name of the app view.
      * @param pType Maps your site's page type classifications to the values Bloomreach expects for our page type classifications.
      * @param params Map for custom keys and its associated values
@@ -362,7 +362,7 @@ object PixelTracker {
 
     /**
      * Method for sending the Add To Cart Event Pixel
-     * @param ref Synthetic URL from referrer screen
+     * @param ref Synthetic URL from referrer screen. If not provided, will use auto-tracked referrer.
      * @param title Screen name of the app view.
      * @param prodId This is the unique ID which describes a product or product collection.
      * @param prodName The name of the product being viewed.
@@ -406,7 +406,7 @@ object PixelTracker {
 
     /**
      * Method for sending the Search Event Pixel
-     * @param ref Synthetic URL from referrer screen
+     * @param ref Synthetic URL from referrer screen. If not provided, will use auto-tracked referrer.
      * @param title Screen name of the app view.
      * @param prodId This is the unique ID which describes a product or product collection.
      * @param prodName The name of the product being viewed.
@@ -452,7 +452,7 @@ object PixelTracker {
 
     /**
      * Method for sending the Search Event Pixel
-     * @param ref Synthetic URL from referrer screen
+     * @param ref Synthetic URL from referrer screen. If not provided, will use auto-tracked referrer.
      * @param title Screen name of the app view.
      * @param searchTerm The value of the search query describing the page.
      * @param catalogs List of CatalogItem that are shown in the page.
@@ -488,7 +488,7 @@ object PixelTracker {
 
     /**
      * Method for sending the Suggestion Event Pixel
-     * @param ref Synthetic URL from referrer screen
+     * @param ref Synthetic URL from referrer screen. If not provided, will use auto-tracked referrer.
      * @param title Screen name of the app view.
      * @param prodId This is the unique ID which describes a product or product collection.
      * @param prodName The name of the product being viewed.
@@ -538,7 +538,7 @@ object PixelTracker {
 
     /**
      * Method for sending the Suggestion Event Pixel
-     * @param ref Synthetic URL from referrer screen
+     * @param ref Synthetic URL from referrer screen. If not provided, will use auto-tracked referrer.
      * @param title Screen name of the app view.
      * @param typedTerm The display query (the one or more letters) that the user has actually typed.
     This is NOT the suggested word or phrase.
@@ -578,7 +578,7 @@ object PixelTracker {
 
     /**
      * Method for sending the Quick Event Pixel
-     * @param ref Synthetic URL from referrer screen
+     * @param ref Synthetic URL from referrer screen. If not provided, will use auto-tracked referrer.
      * @param title Screen name of the app view.
      * @param prodId This is the unique ID which describes a product or product collection.
      * @param prodName The name of the product being viewed.
@@ -617,7 +617,7 @@ object PixelTracker {
 
     /**
      * Method for sending the Custom Event Pixel
-     * @param ref Synthetic URL from referrer screen
+     * @param ref Synthetic URL from referrer screen. If not provided, will use auto-tracked referrer.
      * @param title Screen name of the app view.
      * @param eType Event type
      * @param pType Maps your site's page type classifications to the values Bloomreach expects for our page type classifications.
