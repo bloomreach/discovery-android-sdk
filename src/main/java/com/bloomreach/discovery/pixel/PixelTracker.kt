@@ -15,6 +15,8 @@ object PixelTracker {
     private val TAG: String = PixelTracker.javaClass.simpleName
     lateinit var brPixel: BrPixel
     private val pixelProcessor: PixelProcessor = PixelProcessor()
+    internal var lastUrl: String = ""
+    internal var currentUrl: String = ""
 
     /**
      * Initialise Pixel tracker with BrPixel object
@@ -29,13 +31,17 @@ object PixelTracker {
      * @param ref Synthetic URL from referrer screen
      * @param title Screen name of the app view.
      */
-    fun pageViewPixel(ref: String, title: String) {
+    @JvmOverloads
+    fun pageViewPixel(ref: String = "", title: String) {
         if (this::brPixel.isInitialized) {
+            lastUrl = currentUrl
+            val finalRef = if (ref.isEmpty()) lastUrl else ref
+
             // create pixel object based on input
             val pixelObject = PixelObject(
                 type = PixelType.PAGE_VIEW,
                 pType = PageType.HOME_PAGE,
-                ref = ref,
+                ref = finalRef,
                 title = title
             )
 
@@ -52,13 +58,17 @@ object PixelTracker {
      * @param ref Synthetic URL from referrer screen
      * @param title Screen name of the app view.
      */
-    fun homePageViewPixel(ref: String, title: String) {
+    @JvmOverloads
+    fun homePageViewPixel(ref: String = "", title: String) {
         if (this::brPixel.isInitialized) {
+            lastUrl = currentUrl
+            val finalRef = if (ref.isEmpty()) lastUrl else ref
+
             // create pixel object based on input
             val pixelObject = PixelObject(
                 type = PixelType.PAGE_VIEW,
                 pType = PageType.HOME_PAGE,
-                ref = ref,
+                ref = finalRef,
                 title = title
             )
 
@@ -75,13 +85,17 @@ object PixelTracker {
      * @param ref Synthetic URL from referrer screen
      * @param title Screen name of the app view.
      */
-    fun otherPageViewPixel(ref: String, title: String) {
+    @JvmOverloads
+    fun otherPageViewPixel(ref: String = "", title: String) {
         if (this::brPixel.isInitialized) {
+            lastUrl = currentUrl
+            val finalRef = if (ref.isEmpty()) lastUrl else ref
+
             // create pixel object based on input
             val pixelObject = PixelObject(
                 type = PixelType.PAGE_VIEW,
                 pType = PageType.OTHER_PAGE,
-                ref = ref,
+                ref = finalRef,
                 title = title
             )
 
@@ -102,8 +116,9 @@ object PixelTracker {
      * @param sku Unique sku ID that represents the selected variant of this product. If your site does not have SKUs, leave this blank.
      * @param brPSuggQ Value of User clicked a product suggest. If its not there, leave this null
      */
+    @JvmOverloads
     fun productPageViewPixel(
-        ref: String,
+        ref: String = "",
         title: String,
         prodId: String,
         prodName: String,
@@ -111,10 +126,13 @@ object PixelTracker {
         brPSuggQ: String? = null,
     ) {
         if (this::brPixel.isInitialized) {
+            lastUrl = currentUrl
+            val finalRef = if (ref.isEmpty()) lastUrl else ref
+
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.PAGE_VIEW, pType = PageType.PRODUCT_PAGE,
-                ref = ref, title = title, prodId = prodId, prodName = prodName, prodSku = sku, brPSuggQ = brPSuggQ
+                ref = finalRef, title = title, prodId = prodId, prodName = prodName, prodSku = sku, brPSuggQ = brPSuggQ
             )
 
             // send pixel for further processing
@@ -136,19 +154,23 @@ object PixelTracker {
      *               the item_id as specified in the content feed.
      * @param itemName Name or the title of the content page.
      */
+    @JvmOverloads
     fun contentPageViewPixel(
-        ref: String,
+        ref: String = "",
         title: String,
         catalogs: List<CatalogItem>,
         itemId: String,
         itemName: String
     ) {
         if (this::brPixel.isInitialized) {
+            lastUrl = currentUrl
+            val finalRef = if (ref.isEmpty()) lastUrl else ref
+
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.PAGE_VIEW,
                 pType = PageType.CONTENT_PAGE,
-                ref = ref,
+                ref = finalRef,
                 title = title,
                 catalogs = catalogs,
                 itemId = itemId,
@@ -169,18 +191,22 @@ object PixelTracker {
      * @param catalogs List of CatalogItem that are shown in the page.
      * @param searchTerm The value of the search query describing the page.
      */
+    @JvmOverloads
     fun contentSearchPageViewPixel(
-        ref: String,
+        ref: String = "",
         title: String,
         catalogs: List<CatalogItem>,
         searchTerm: String
     ) {
         if (this::brPixel.isInitialized) {
+            lastUrl = currentUrl
+            val finalRef = if (ref.isEmpty()) lastUrl else ref
+
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.PAGE_VIEW,
                 pType = PageType.SEARCH_PAGE,
-                ref = ref,
+                ref = finalRef,
                 title = title,
                 catalogs = catalogs,
                 searchTerm = searchTerm
@@ -201,18 +227,22 @@ object PixelTracker {
      * @param categoryId Unique category ID as referred to in the database/catalog. Bloomreach requires the cat_id field to be unique across your site.
      * @param category The bread crumb of the page. Value needs to match the crumb value in your feed. eg: "Home|Clothing|Outerwear"
      */
+    @JvmOverloads
     fun categoryPageViewPixel(
-        ref: String,
+        ref: String = "",
         title: String,
         categoryId: String,
         category: String
     ) {
         if (this::brPixel.isInitialized) {
+            lastUrl = currentUrl
+            val finalRef = if (ref.isEmpty()) lastUrl else ref
+
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.PAGE_VIEW,
                 pType = PageType.CATEGORY_PAGE,
-                ref = ref,
+                ref = finalRef,
                 title = title,
                 cat = category,
                 catId = categoryId
@@ -231,15 +261,18 @@ object PixelTracker {
      * @param ref Synthetic URL from referrer screen
      * @param title Screen name of the app view.
      * @param searchTerm The value of the search query describing the page.
-     * @param catalogs List of CatalogItem that are shown in the page.
      */
-    fun searchResultPageViewPixel(ref: String, title: String, searchTerm: String, catalogs: List<CatalogItem>? = null) {
+    @JvmOverloads
+    fun searchResultPageViewPixel(ref: String = "", title: String, searchTerm: String, catalogs: List<CatalogItem>? = null) {
         if (this::brPixel.isInitialized) {
+            lastUrl = currentUrl
+            val finalRef = if (ref.isEmpty()) lastUrl else ref
+
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.PAGE_VIEW,
                 pType = PageType.SEARCH_PAGE,
-                ref = ref,
+                ref = finalRef,
                 title = title,
                 searchTerm = searchTerm,
                 catalogs = catalogs
@@ -262,8 +295,9 @@ object PixelTracker {
      * @param orderId The order ID associated with the order placed
      * @param basket  List of the PixelBasketItem objects (Products purchased).
      */
+    @JvmOverloads
     fun conversionPageView(
-        ref: String,
+        ref: String = "",
         title: String,
         isConversion: Boolean,
         basketValue: String,
@@ -271,11 +305,14 @@ object PixelTracker {
         basket: List<PixelBasketItem>
     ) {
         if (this::brPixel.isInitialized) {
+            lastUrl = currentUrl
+            val finalRef = if (ref.isEmpty()) lastUrl else ref
+
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.PAGE_VIEW,
                 pType = PageType.CONVERSION,
-                ref = ref,
+                ref = finalRef,
                 title = title,
                 isConversion = if (isConversion) 1 else 0,
                 basketValue = basketValue,
@@ -293,20 +330,24 @@ object PixelTracker {
 
     /**
      * Method to send any type of Page View Pixel with Custom Parameters
-     * @param ref Synthetic URL from referrer screen
+     * @param ref Synthetic URL from referrer screen. If empty, will use auto-tracked referrer.
      * @param title Screen name of the app view.
      * @param pType Maps your site's page type classifications to the values Bloomreach expects for our page type classifications.
      * @param params Map for custom keys and its associated values
      */
+    @JvmOverloads
     fun customPageViewPixel(
-        ref: String,
+        ref: String = "",
         title: String,
         pType: PageType,
         params: MutableMap<String, String?>
     ) {
         if (this::brPixel.isInitialized) {
+            lastUrl = currentUrl
+            val finalRef = if (ref.isEmpty()) lastUrl else ref
+
             // directly add map to the PixelQueue
-            params["ref"] = ref
+            params["ref"] = finalRef
             params["title"] = title
             params["type"] = PixelType.PAGE_VIEW.type
             params["ptype"] = pType.pType
@@ -329,8 +370,9 @@ object PixelTracker {
      * @param prodCollectionId (Optional) When a product is added to cart from a Product Collection page, set prod_collection_id as the id of the collection.
      *                          No need to set prod_collection_id param in the ATC event pixel when a product is added to cart from its own page, independent of any Product Collection it is part of.
      */
+    @JvmOverloads
     fun addToCartEventPixel(
-        ref: String,
+        ref: String = "",
         title: String,
         prodId: String,
         prodName: String,
@@ -338,13 +380,15 @@ object PixelTracker {
         prodCollectionId: String? = null
     ) {
         if (this::brPixel.isInitialized) {
+            val finalRef = if (ref.isEmpty()) lastUrl else ref
+
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.EVENT,
                 pType = PageType.EVENT,
                 group = GroupType.CART,
                 eType = "click-add",
-                ref = ref,
+                ref = finalRef,
                 title = title,
                 prodId = prodId,
                 prodName = prodName,
@@ -371,8 +415,9 @@ object PixelTracker {
      * @param catalogs List of CatalogItem that are shown in the page.
      */
     @Deprecated("This method will be removed in future version. Instead use searchEventPixel(ref, title, searchTerm, catalogs)")
+    @JvmOverloads
     fun searchEventPixel(
-        ref: String,
+        ref: String = "",
         title: String,
         prodId: String,
         prodName: String,
@@ -381,6 +426,7 @@ object PixelTracker {
         catalogs: List<CatalogItem>? = null
     ) {
         if (this::brPixel.isInitialized) {
+            val finalRef = if (ref.isEmpty()) lastUrl else ref
 
             // create pixel object based ob input
             val pixelObject = PixelObject(
@@ -388,7 +434,7 @@ object PixelTracker {
                 pType = PageType.EVENT,
                 group = GroupType.SUGGEST,
                 eType = "submit",
-                ref = ref,
+                ref = finalRef,
                 title = title,
                 prodId = prodId,
                 prodName = prodName,
@@ -411,13 +457,15 @@ object PixelTracker {
      * @param searchTerm The value of the search query describing the page.
      * @param catalogs List of CatalogItem that are shown in the page.
      */
+    @JvmOverloads
     fun searchEventPixel(
-        ref: String,
+        ref: String = "",
         title: String,
         searchTerm: String,
         catalogs: List<CatalogItem>? = null
     ) {
         if (this::brPixel.isInitialized) {
+            val finalRef = if (ref.isEmpty()) lastUrl else ref
 
             // create pixel object based ob input
             val pixelObject = PixelObject(
@@ -425,7 +473,7 @@ object PixelTracker {
                 pType = PageType.EVENT,
                 group = GroupType.SUGGEST,
                 eType = "submit",
-                ref = ref,
+                ref = finalRef,
                 title = title,
                 searchTerm = searchTerm,
                 catalogs = catalogs
@@ -451,8 +499,9 @@ object PixelTracker {
      * @param catalogs List of CatalogItem that are shown in the page.
      */
     @Deprecated("This method will be removed in future version. Instead use suggestionEventPixel(ref, title,typedTerm, searchTerm, catalogs)")
+    @JvmOverloads
     fun suggestionEventPixel(
-        ref: String,
+        ref: String = "",
         title: String,
         prodId: String,
         prodName: String,
@@ -462,13 +511,15 @@ object PixelTracker {
         catalogs: List<CatalogItem>? = null
     ) {
         if (this::brPixel.isInitialized) {
+            val finalRef = if (ref.isEmpty()) lastUrl else ref
+
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.EVENT,
                 pType = PageType.EVENT,
                 group = GroupType.SUGGEST,
                 eType = "click",
-                ref = ref,
+                ref = finalRef,
                 title = title,
                 prodId = prodId,
                 prodName = prodName,
@@ -494,21 +545,24 @@ object PixelTracker {
      * @param searchTerm User's typed search query submitted to search box
      * @param catalogs List of CatalogItem that are shown in the page.
      */
+    @JvmOverloads
     fun suggestionEventPixel(
-        ref: String,
+        ref: String = "",
         title: String,
         typedTerm: String,
         searchTerm: String,
         catalogs: List<CatalogItem>? = null
     ) {
         if (this::brPixel.isInitialized) {
+            val finalRef = if (ref.isEmpty()) lastUrl else ref
+
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.EVENT,
                 pType = PageType.EVENT,
                 group = GroupType.SUGGEST,
                 eType = "click",
-                ref = ref,
+                ref = finalRef,
                 title = title,
                 searchTerm = searchTerm,
                 typedTerm = typedTerm,
@@ -530,21 +584,24 @@ object PixelTracker {
      * @param prodName The name of the product being viewed.
      * @param sku Unique sku ID that represents the selected variant of this product. If your site does not have SKUs, leave this blank.
      */
+    @JvmOverloads
     fun quickViewEventPixel(
-        ref: String,
+        ref: String = "",
         title: String,
         prodId: String,
         prodName: String,
         sku: String
     ) {
         if (this::brPixel.isInitialized) {
+            val finalRef = if (ref.isEmpty()) lastUrl else ref
+
             // create pixel object based ob input
             val pixelObject = PixelObject(
                 type = PixelType.EVENT,
                 pType = PageType.EVENT,
                 group = GroupType.PRODUCT,
                 eType = "quickview",
-                ref = ref,
+                ref = finalRef,
                 title = title,
                 prodId = prodId,
                 prodName = prodName,
@@ -567,8 +624,9 @@ object PixelTracker {
      * @param group Specifies the event grouping
      * @param params Map for custom keys and its associated values
      */
+    @JvmOverloads
     fun customEventPixel(
-        ref: String,
+        ref: String = "",
         title: String,
         eType: String,
         pType: PageType,
@@ -576,8 +634,10 @@ object PixelTracker {
         params: MutableMap<String, String?>
     ) {
         if (this::brPixel.isInitialized) {
+            val finalRef = if (ref.isEmpty()) lastUrl else ref
+
             // directly add map to the PixelQueue
-            params["ref"] = ref
+            params["ref"] = finalRef
             params["title"] = title
             params["type"] = PixelType.EVENT.type
             params["etype"] = eType
@@ -613,6 +673,7 @@ object PixelTracker {
             params["wq"] = widgetViewDataWq
             params["wid"] = widgetViewDataWid
             params["wty"] = widgetViewDataWty
+            params["ref"] = lastUrl
             pixelProcessor.processPixel(params)
         } else {
             Log.e(TAG, "Pixel Tracker not initialised")
@@ -646,6 +707,7 @@ object PixelTracker {
             params["wq"] = widgetViewDataWq
             params["wid"] = widgetViewDataWid
             params["wty"] = widgetViewDataWty
+            params["ref"] = lastUrl
             pixelProcessor.processPixel(params)
         } else {
             Log.e(TAG, "Pixel Tracker not initialised")
@@ -682,6 +744,7 @@ object PixelTracker {
             if(!widgetAtcDataSku.isNullOrEmpty()) {
                 params["sku"] = widgetAtcDataSku
             }
+            params["ref"] = lastUrl
             pixelProcessor.processPixel(params)
         } else {
             Log.e(TAG, "Pixel Tracker not initialised")
