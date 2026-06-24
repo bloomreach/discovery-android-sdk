@@ -102,15 +102,19 @@ internal class PixelProcessor {
             queryMap.put("test_data", PixelTracker.brPixel.testData.toString())
         }
 
-        queryMap.put(
-            "url", FormatterUtils.formatUrl(
+        if (queryMap["type"] == PixelType.EVENT.type) {
+            queryMap.put("url", PixelTracker.currentUrl)
+        } else {
+            val url = FormatterUtils.formatUrl(
                 PixelTracker.brPixel.baseUrl,
                 queryMap["ptype"] ?: "",
                 queryMap["title"] ?: "",
                 queryMap["brPSuggQ"] ?: ""
 
             )
-        )
+            queryMap.put("url", url)
+            PixelTracker.currentUrl = url
+        }
 
         // customer user id
         if (!PixelTracker.brPixel.userId.isNullOrEmpty()) {
@@ -296,14 +300,18 @@ internal class PixelProcessor {
 
         queryMap.put("title", pixelObject.title)
 
-        queryMap.put(
-            "url", FormatterUtils.formatUrl(
+        if (pixelObject.type == PixelType.EVENT) {
+            queryMap.put("url", PixelTracker.currentUrl)
+        } else {
+            val url = FormatterUtils.formatUrl(
                 PixelTracker.brPixel.baseUrl,
                 pixelObject.pType.pType,
                 pixelObject.title,
                 pixelObject.brPSuggQ
             )
-        )
+            queryMap.put("url", url)
+            PixelTracker.currentUrl = url
+        }
 
         queryMap.put("ref", pixelObject.ref)
 
