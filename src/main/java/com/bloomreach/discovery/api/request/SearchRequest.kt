@@ -503,4 +503,118 @@ sealed class SearchRequest<T>() : RequestMap<T>() {
     fun facetVersion(value: String): T {
         return set(ApiConstants.FACET_VERSION, value)
     }
+
+    /**
+     * Method to Hard Boost
+     *
+     * @param value of Hard Boost eg: pid:“pid1” OR “pid2”
+     *
+     * @return  A reference to the current Request object
+     */
+    fun hardBoost(value: String): T {
+        return set(ApiConstants.BOOST, value)
+    }
+
+
+    /**
+     * Method to Hard Bury
+     *
+     * @param value of Hard Bury eg: pid:“pid1” OR “pid2”
+     *
+     * @return  A reference to the current Request object
+     */
+    fun hardBury(value: String): T {
+        return set(ApiConstants.BURY, value)
+    }
+
+    /**
+     * Method to LOCK POSITION
+     *
+     * @param value of Lock eg: pid:”pid1”#3 OR ”pid2”#10
+     *
+     * @return  A reference to the current Request object
+     */
+    fun lock(value: String): T {
+        return set(ApiConstants.LOCK, value)
+    }
+
+    /**
+     * Method to addToRecall
+     *
+     * @param value of add_to_recall eg: pid:“pid1” OR “pid2”
+     *
+     * @return  A reference to the current Request object
+     */
+    fun addToRecall(value: String): T {
+        return set(ApiConstants.ADD_TO_RECALL, value)
+    }
+
+    /**
+     * Method to SOFT BOOST
+     *
+     * @param value of soft_boost eg: ”brand”:”Brand1” OR “Brand2”
+     *
+     * @return  A reference to the current Request object
+     */
+    fun softBoost(value: String): T {
+        return set(ApiConstants.SOFT_BOOST, value)
+    }
+
+    /**
+     * Method to SOFT Bury
+     *
+     * @param value of soft_bury eg: ”brand”:”Brand1” OR “Brand2”
+     *
+     * @return  A reference to the current Request object
+     */
+    fun softBury(value: String): T {
+        return set(ApiConstants.SOFT_BURY, value)
+    }
+
+    /**
+     * Method to include
+     *
+     * @param value of include eg: ”brand”:”Brand1” OR “Brand2”
+     *
+     * @return  A reference to the current Request object
+     */
+    fun include(value: String): T {
+        return set(ApiConstants.INCLUDE, value)
+    }
+
+    /**
+     * Method to exclude
+     *
+     * @param value of exclude eg: brand:”Brand1” OR “Brand2”
+     *
+     * @return  A reference to the current Request object
+     */
+    fun exclude(value: String): T {
+        return set(ApiConstants.EXCLUDE, value)
+    }
+
+    /**
+     * Method to Apply Loomi Search+ API Controls
+     *
+     * @param value ENUM of type SearchMode.
+     * HYBRID for Loomi Search+ mode or STANDARD for Keyword search mode
+     *
+     * @return  A reference to the current Request object
+     */
+    fun searchMode(value: SearchMode): T {
+        return set(ApiConstants.QUERY_SEARCH_MODE, value.value)
+    }
+
+    /**
+     * Method to Apply Vector Search Temperature
+     *
+     * @param value ENUM of type VectorSearchTemperature
+     * standard For a wider recall or high For a compact and very precise recall
+     *
+     *
+     * @return  A reference to the current Request object
+     */
+    fun vectorSearchTemperature(value: VectorSearchTemperature): T {
+        return set(ApiConstants.VECTOR_SEARCH_TEMPERATURE, value.value)
+    }
 }

@@ -62,6 +62,6 @@ class ListenableQueue<E>(
 
     interface Listener<E> {
         fun onElementAdded(element: E)
-        fun onElementRemoved(element: E)
+        fun onElementRemoved(element: E?)
     }
 }

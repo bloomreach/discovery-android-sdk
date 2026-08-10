@@ -7,6 +7,7 @@ import android.net.Uri
 import android.util.Base64
 import android.util.Log
 import com.bloomreach.discovery.pixel.model.CatalogItem
+import com.bloomreach.discovery.pixel.model.PageType
 import com.bloomreach.discovery.pixel.model.PixelBasketItem
 import com.bloomreach.discovery.pixel.model.VisitorType
 import java.net.URLDecoder
@@ -50,9 +51,19 @@ internal object FormatterUtils {
      * @param title Title of the screen
      * @return url - String value in 'http://merchantname.app/ptype/title' format
      */
-    fun formatUrl(baseurl: String, pType: String, title: String): String {
+    fun formatUrl(baseurl: String, pType: String, title: String, brPSuggQ: String? = null): String {
         // convert in format http://merchantname.app/ptype/title
-        return "$baseurl$pType/$title"
+        return if(pType.isEmpty()) {
+            baseurl
+        } else {
+            if(pType == PageType.PRODUCT_PAGE.pType && !brPSuggQ.isNullOrEmpty()) {
+                "$baseurl$pType/$title?_br_psugg_q=$brPSuggQ"
+            } else {
+                "$baseurl$pType/$title"
+            }
+
+        }
+
     }
 
     /**

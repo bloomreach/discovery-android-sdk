@@ -37,7 +37,7 @@ internal class PixelProcessor {
             }
 
             @RequiresApi(Build.VERSION_CODES.N)
-            override fun onElementRemoved(element: MutableMap<String, String?>) {
+            override fun onElementRemoved(element: MutableMap<String, String?>?) {
                 performApi()
             }
         })
@@ -106,13 +106,19 @@ internal class PixelProcessor {
             queryMap.put("test_data", PixelTracker.brPixel.testData.toString())
         }
 
-        queryMap.put(
-            "url", FormatterUtils.formatUrl(
+        if (queryMap["type"] == PixelType.EVENT.type) {
+            queryMap.put("url", PixelTracker.currentUrl)
+        } else {
+            val url = FormatterUtils.formatUrl(
                 PixelTracker.brPixel.baseUrl,
                 queryMap["ptype"] ?: "",
-                queryMap["title"] ?: ""
+                queryMap["title"] ?: "",
+                queryMap["brPSuggQ"] ?: ""
+
             )
-        )
+            queryMap.put("url", url)
+            PixelTracker.currentUrl = url
+        }
 
         // customer user id
         if (!PixelTracker.brPixel.userId.isNullOrEmpty()) {
@@ -162,6 +168,11 @@ internal class PixelProcessor {
         //debug
         if (PixelTracker.brPixel.debugMode) {
             queryMap.put("debug", PixelTracker.brPixel.debugMode.toString())
+        }
+
+        //abtest
+        if (!PixelTracker.brPixel.abTest.isNullOrEmpty()) {
+            queryMap.put("abtest", PixelTracker.brPixel.abTest)
         }
 
         // add the processed Map to Queue for further process
@@ -298,13 +309,18 @@ internal class PixelProcessor {
 
         queryMap.put("title", pixelObject.title)
 
-        queryMap.put(
-            "url", FormatterUtils.formatUrl(
+        if (pixelObject.type == PixelType.EVENT) {
+            queryMap.put("url", PixelTracker.currentUrl)
+        } else {
+            val url = FormatterUtils.formatUrl(
                 PixelTracker.brPixel.baseUrl,
                 pixelObject.pType.pType,
-                pixelObject.title
+                pixelObject.title,
+                pixelObject.brPSuggQ
             )
-        )
+            queryMap.put("url", url)
+            PixelTracker.currentUrl = url
+        }
 
         queryMap.put("ref", pixelObject.ref)
 
@@ -351,6 +367,11 @@ internal class PixelProcessor {
         //debug
         if (PixelTracker.brPixel.debugMode) {
             queryMap.put("debug", PixelTracker.brPixel.debugMode.toString())
+        }
+
+        //abtest
+        if (!PixelTracker.brPixel.abTest.isNullOrEmpty()) {
+            queryMap.put("abtest", PixelTracker.brPixel.abTest)
         }
 
         return queryMap
