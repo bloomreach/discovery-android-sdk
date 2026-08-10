@@ -164,13 +164,19 @@ internal class ApiProcessor {
             "_br_uid_2",
             FormatterUtils.formatCookieValue(
                 BrApi.brApiRequest.uuid,
-                BrApi.brApiRequest.visitorType
+                BrApi.brApiRequest.visitorType,
+                BrApi.brApiRequest.cdpSegment
             )
         )
         uriBuilder.appendQueryParameter("ref_url", "")
         if (!BrApi.brApiRequest.userId.isNullOrEmpty()) {
             uriBuilder.appendQueryParameter("user_id", BrApi.brApiRequest.userId)
         }
+
+        if (!BrApi.brApiRequest.cdpSegment.isNullOrEmpty()) {
+            uriBuilder.appendQueryParameter("cdp_segments", BrApi.brApiRequest.cdpSegment)
+        }
+
         return uriBuilder
     }
 
