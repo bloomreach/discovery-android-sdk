@@ -6,6 +6,7 @@ package com.bloomreach.discovery.pixel
 import android.util.Log
 import com.bloomreach.discovery.pixel.processpixel.PixelProcessor
 import com.bloomreach.discovery.pixel.model.*
+import com.bloomreach.discovery.pixel.processpixel.FormatterUtils
 
 /**
  * PixelTracker Singleton class holds all types of Page view and Event Pixels methods
@@ -748,6 +749,21 @@ object PixelTracker {
             pixelProcessor.processPixel(params)
         } else {
             Log.e(TAG, "Pixel Tracker not initialised")
+        }
+    }
+
+    /**
+    Method to return Cookie2 value
+    - returns String  value in 'uid={{UUID}}:v=app:ts=0:hc={{hitcount}}' format
+     */
+    public fun getCookie(): String {
+        return if (this::brPixel.isInitialized) {
+            FormatterUtils.formatCookieValue(
+                uuid = brPixel.uuid, hitcount = brPixel.visitorType,
+                cdpSegment = brPixel.cdpSegment ?: ""
+            )
+        } else {
+            ""
         }
     }
 }
